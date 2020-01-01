@@ -1,15 +1,29 @@
-.custom-forget-password-link a{
+.custom-forget-password-link a {
     width: 30% !important;
 }
 
-.custom-forget-password-link a span{
+.custom-forget-password-link a span {
     width: 100% !important;
 }
 
-.custom-sign-link a{
+.custom-sign-link a {
     width: 20% !important;
 }
 
-.custom-sign-link a span{
+.custom-sign-link a span {
     width: 100% !important;
+}
+
+.custom-checkbox {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgb(255, 255, 255);
+    border: 0px;
+    opacity: 0;
 }

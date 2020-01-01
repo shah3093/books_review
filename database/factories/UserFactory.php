@@ -19,8 +19,9 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'email' => "admin@admin/com",
+        'email' => "admin@admin.com",
         'email_verified_at' => now(),
+        'user_type' => 3,
         'password' => bcrypt('12345678'), // password
         'remember_token' => Str::random(10),
     ];

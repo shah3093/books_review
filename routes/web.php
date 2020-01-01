@@ -11,14 +11,19 @@
 |
 */
 
+use Illuminate\Support\Facades\Config;
+
 Route::auth();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', function () {
-        return view('welcome');
+       return view('admin.home.index');
     });
-    Route::get('/home', function () {
-        return view('welcome');
-    });
+    Route::get('/permission','Admin\PermissionController@index')->name('permission')
+        ->middleware('permission:'.Config::get('constants.permissions.PERMISSION_LIST'));
+    Route::get('/permission-assign/{role}','Admin\PermissionController@assignPermission')->name('permission.assign')
+        ->middleware('permission:'.Config::get('constants.permissions.ASSIGN_PERMISSION'));
+    Route::post('/permission-assign/store','Admin\PermissionController@store')->name('permission.store')
+        ->middleware('permission:'.Config::get('constants.permissions.STORE_PERMISSION'));
 });
 
