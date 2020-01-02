@@ -10,7 +10,8 @@
                         <a  href="{{route('permission')}}">
                             <i class="notika-icon notika-mail"></i> Permission</a>
                     </li>
-                    <li><a data-toggle="tab" href="#Interface"><i class="notika-icon notika-edit"></i> Interface</a>
+                    <li>
+                        <a data-toggle="tab" href="#User"><i class="notika-icon notika-promos"></i> User</a>
                     </li>
                     <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Charts</a>
                     </li>
@@ -24,29 +25,12 @@
                     </li>
                 </ul>
                 <div class="tab-content custom-menu-content">
-                    <div id="mailbox" class="tab-pane notika-tab-menu-bg animated flipInX">
+
+                    <div id="User" class="tab-pane notika-tab-menu-bg animated flipInX">
                         <ul class="notika-main-menu-dropdown">
-                            <li><a href="inbox.html">Inbox</a>
+                            <li><a href="{{route('user')}}">User List</a>
                             </li>
-                            <li><a href="view-email.html">View Email</a>
-                            </li>
-                            <li><a href="compose-email.html">Compose Email</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
-                        <ul class="notika-main-menu-dropdown">
-                            <li><a href="animations.html">Animations</a>
-                            </li>
-                            <li><a href="google-map.html">Google Map</a>
-                            </li>
-                            <li><a href="data-map.html">Data Maps</a>
-                            </li>
-                            <li><a href="code-editor.html">Code Editor</a>
-                            </li>
-                            <li><a href="image-cropper.html">Images Cropper</a>
-                            </li>
-                            <li><a href="wizard.html">Wizard</a>
+                            <li><a href="{{route('user.create')}}">Create List</a>
                             </li>
                         </ul>
                     </div>

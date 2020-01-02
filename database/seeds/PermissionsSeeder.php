@@ -9,6 +9,10 @@ class PermissionsSeeder extends Seeder
 {
     public function run()
     {
-        Permission::create(['name' => Config::get('constants.permissions.STORE_PERMISSION')]);
+//        Permission::create(['name' => Config::get('constants.permissions.STORE_PERMISSION')]);
+
+
+        Permission::create(['name' => Config::get('constants.permissions.USER_STORE')]);
+        Permission::create(['name' => Config::get('constants.permissions.USER_UPDATE')]);
     }
 }

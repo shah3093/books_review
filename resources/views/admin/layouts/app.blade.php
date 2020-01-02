@@ -51,12 +51,21 @@
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="{{asset('assets/notika/style.css')}}">
+
+    <!-- Data Table JS
+		============================================ -->
+    <link rel="stylesheet" href="{{asset('assets/notika/css/jquery.dataTables.min.css')}}">
+
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="{{asset('assets/notika/css/responsive.css')}}">
     <!-- modernizr JS
 		============================================ -->
     <script src="{{asset('assets/notika/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+    <link rel="stylesheet" href="{{asset('assets/notika/custom/css/custom.css')}}">
+
+    @yield('styles')
 </head>
 
 <body>
@@ -154,15 +163,21 @@
 <script src="{{asset('assets/notika/js/icheck/icheck.min.js')}}"></script>
 <script src="{{asset('assets/notika/js/icheck/icheck-active.js')}}"></script>
 
+<!-- Data Table JS
+      ============================================ -->
+<script src="{{asset('assets/notika/js/data-table/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/notika/js/data-table/data-table-act.js')}}"></script>
+
 <!--  Chat JS
     ============================================ -->
 <script src="{{asset('assets/notika/js/chat/moment.min.js')}}"></script>
-<script src="{{asset('assets/notika/js/chat/jquery.chat.js')}}"></script>
 <!-- main JS
     ============================================ -->
 <script src="{{asset('assets/notika/js/main.js')}}"></script>
 
 <script src="{{asset('assets/notika/custom/js/custom.js')}}"></script>
+
+@yield('scripts')
 
 </body>
 
