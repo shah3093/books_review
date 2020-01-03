@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Utils\CommonFunction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {

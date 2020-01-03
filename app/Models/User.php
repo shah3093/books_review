@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -13,9 +14,9 @@ class User extends Authenticatable
     use Notifiable, HasRoles;
 
     const USER_TYPE = [
-        0 => 'User',
-        1 => 'Moderator',
-        2 => 'Super Admin',
+        1 => 'User',
+        2 => 'Moderator',
+        3 => 'Super Admin',
     ];
 
     const USER_STATUS = [
@@ -71,6 +72,10 @@ class User extends Authenticatable
 
         $user->save();
 
+        //Assigning Roles
+        $role = Role::findById($user->user_type);
+        $user->assignRole($role);
+
         return $user;
     }
 
@@ -90,6 +95,10 @@ class User extends Authenticatable
             $user->details = $data['details'];
 
             $user->save();
+
+            //Assigning Roles
+            $role = Role::findById($user->user_type);
+            $user->assignRole($role);
         }else{
             $statusCode = 2;
         }
@@ -105,7 +114,10 @@ class User extends Authenticatable
         if(Auth::user()->id == $id){
             $statusCode = 3;
         }else if(!empty($user) && $statusCode == 100){
-            User::where('id',$id)->delete();
+
+            $role = Role::findById($user->user_type);
+            $user->removeRole($role);
+            $user->delete();
         }else{
             $statusCode = 2;
         }

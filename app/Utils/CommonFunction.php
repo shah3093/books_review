@@ -12,11 +12,11 @@ class CommonFunction
 
     public static function getUserType($usertype)
     {
-        if ($usertype == 0) {
+        if ($usertype == 1) {
             return 'User';
-        } elseif ($usertype == 1) {
-            return 'Moderator';
         } elseif ($usertype == 2) {
+            return 'Moderator';
+        } elseif ($usertype == 3) {
             return 'Super Admin';
         }
     }

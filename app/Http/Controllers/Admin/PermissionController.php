@@ -28,15 +28,17 @@ class PermissionController extends Controller
         }
     }
     public function store(Request $request){
+
         $role = Role::findByName($request->input('role'));;
 
         if(!empty($role)){
-            //removing role permissions
-            $role->syncPermissions([]);
-
             //assinging permissions
             $permissions = $request->input('permissions');
+
             if(!empty($permissions)){
+                //removing role permissions
+                $role->syncPermissions([]);
+
                 foreach ($permissions as $permission){
                     $role->givePermissionTo($permission);
                 }

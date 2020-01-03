@@ -13,9 +13,9 @@
                     <li>
                         <a data-toggle="tab" href="#User"><i class="notika-icon notika-promos"></i> User</a>
                     </li>
-                    <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Charts</a>
+                    <li><a data-toggle="tab" href="#Author"><i class="notika-icon notika-bar-chart"></i> Author</a>
                     </li>
-                    <li><a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Tables</a>
+                    <li><a data-toggle="tab" href="#Publisher"><i class="notika-icon notika-windows"></i> Publisher</a>
                     </li>
                     <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Forms</a>
                     </li>
@@ -30,7 +30,23 @@
                         <ul class="notika-main-menu-dropdown">
                             <li><a href="{{route('user')}}">User List</a>
                             </li>
-                            <li><a href="{{route('user.create')}}">Create List</a>
+                            <li><a href="{{route('user.create')}}">Create User</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Author" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{route('author')}}">Author List</a>
+                            </li>
+                            <li><a href="{{route('author.create')}}">Create Author</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Publisher" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{route('publisher')}}">Publisher List</a>
+                            </li>
+                            <li><a href="{{route('publisher.create')}}">Create Publisher</a>
                             </li>
                         </ul>
                     </div>

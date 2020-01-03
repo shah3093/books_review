@@ -12,7 +12,25 @@ class PermissionsSeeder extends Seeder
 //        Permission::create(['name' => Config::get('constants.permissions.STORE_PERMISSION')]);
 
 
-        Permission::create(['name' => Config::get('constants.permissions.USER_STORE')]);
-        Permission::create(['name' => Config::get('constants.permissions.USER_UPDATE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.USER_STORE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.USER_UPDATE')]);
+
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_CREATE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_STORE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_DELETE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_EDIT')]);
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_UPDATE')]);
+//        Permission::create(['name' => Config::get('constants.permissions.AUTHOR_LIST')]);
+//
+
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_CREATE')]);
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_STORE')]);
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_DELETE')]);
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_EDIT')]);
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_UPDATE')]);
+        Permission::create(['name' => Config::get('constants.permissions.PUBLISHER_LIST')]);
+
+
+
     }
 }

@@ -2,12 +2,12 @@ $("#slectAllPermissionDiv > .icheckbox_square-green > .iCheck-helper").on("click
     var status = $("#allPermission").is(":checked");
     if(status){
         $(".permission-check-box").each(function() {
-            $(this).attr('checked',true);
+            $(this).prop('checked',true);
             $(this).parent().addClass('checked');
         });
     }else{
         $(".permission-check-box").each(function() {
-            $(this).attr('checked',false);
+            $(this).removeProp('checked');
             $(this).parent().removeClass('checked');
         });
     }

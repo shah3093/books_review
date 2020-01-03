@@ -14,6 +14,20 @@ return [
         'ASSIGN_PERMISSION' => 'assign permission',
         'STORE_PERMISSION' => 'store permission',
 
+        'AUTHOR_CREATE' => 'create author',
+        'AUTHOR_STORE' => 'store author',
+        'AUTHOR_DELETE' => 'delete author',
+        'AUTHOR_EDIT' => 'edit author',
+        'AUTHOR_UPDATE' => 'update author',
+        'AUTHOR_LIST' => 'author list',
+
+        'PUBLISHER_CREATE' => 'create publisher',
+        'PUBLISHER_STORE' => 'store publisher',
+        'PUBLISHER_DELETE' => 'delete publisher',
+        'PUBLISHER_EDIT' => 'edit publisher',
+        'PUBLISHER_UPDATE' => 'update publisher',
+        'PUBLISHER_LIST' => 'publisher list',
+
     ],
     'roles' => [
         'MODERATOR' => 'moderator',

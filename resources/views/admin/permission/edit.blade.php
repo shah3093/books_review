@@ -60,7 +60,7 @@
                                         <div class="fm-checkbox">
                                             <label class="">
                                                 <div class="icheckbox_square-green">
-                                                    <input {{$role->hasPermissionTo($permission) ? "checked":null}}  value="{{$permission}}" type="checkbox" name="permissions[]" class="i-checks permission-check-box"/>
+                                                    <input  {{$role->hasPermissionTo($permission) ? "checked='checked'":null}}  value="{{$permission}}" type="checkbox" name="permissions[]" class="i-checks permission-check-box"/>
                                                 </div>
                                                 <i></i> {{ucfirst($permission)}}</label>
                                         </div>
