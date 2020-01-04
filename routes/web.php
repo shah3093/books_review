@@ -19,6 +19,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', function () {
        return view('admin.home.index');
     });
+    
+    Route::get('/home', function () {
+       return view('admin.home.index');
+    });
+
     Route::get('/permission','Admin\PermissionController@index')->name('permission')
         ->middleware('permission:'.Config::get('constants.permissions.PERMISSION_LIST'));
     Route::get('/permission-assign/{role}','Admin\PermissionController@assignPermission')->name('permission.assign')
@@ -65,6 +70,19 @@ Route::group(['middleware' => ['auth']], function () {
         ->middleware('permission:'.Config::get('constants.permissions.PUBLISHER_UPDATE'));
     Route::get('publisher-delete/{id}','Admin\PublisherController@destroy')->name('publisher.delete')
         ->middleware('permission:'.Config::get('constants.permissions.PUBLISHER_DELETE'));
+
+    Route::get('book','Admin\BookController@index')->name('book')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_LIST'));
+    Route::get('book-create','Admin\BookController@create')->name('book.create')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_CREATE'));
+    Route::post('book-store','Admin\BookController@store')->name('book.store')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_STORE'));
+    Route::get('book-edit/{id}','Admin\BookController@edit')->name('book.edit')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_EDIT'));
+    Route::post('book-update/{id}','Admin\BookController@update')->name('book.update')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_UPDATE'));
+    Route::get('book-delete/{id}','Admin\BookController@destroy')->name('book.delete')
+        ->middleware('permission:'.Config::get('constants.permissions.BOOK_DELETE'));
 
 
 });

@@ -28,6 +28,13 @@ return [
         'PUBLISHER_UPDATE' => 'update publisher',
         'PUBLISHER_LIST' => 'publisher list',
 
+        'BOOK_CREATE' => 'create book',
+        'BOOK_STORE' => 'store book',
+        'BOOK_DELETE' => 'delete book',
+        'BOOK_EDIT' => 'edit book',
+        'BOOK_UPDATE' => 'update book',
+        'BOOK_LIST' => 'book list',
+
     ],
     'roles' => [
         'MODERATOR' => 'moderator',
