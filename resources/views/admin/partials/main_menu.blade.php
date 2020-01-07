@@ -17,7 +17,7 @@
                     </li>
                     <li><a data-toggle="tab" href="#Publisher"><i class="notika-icon notika-windows"></i> Publisher</a>
                     </li>
-                    <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Forms</a>
+                    <li><a data-toggle="tab" href="#Book"><i class="notika-icon notika-form"></i> Book</a>
                     </li>
                     <li><a data-toggle="tab" href="#Appviews"><i class="notika-icon notika-app"></i> App views</a>
                     </li>
@@ -47,6 +47,14 @@
                             <li><a href="{{route('publisher')}}">Publisher List</a>
                             </li>
                             <li><a href="{{route('publisher.create')}}">Create Publisher</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="Book" class="tab-pane notika-tab-menu-bg animated flipInX">
+                        <ul class="notika-main-menu-dropdown">
+                            <li><a href="{{route('book')}}">Book List</a>
+                            </li>
+                            <li><a href="{{route('book.create')}}">Create Book</a>
                             </li>
                         </ul>
                     </div>

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Book;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
+use App\Models\Book;
 use App\Models\Publisher;
+use App\Utils\CommonFunction;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -20,7 +22,7 @@ class BookController extends Controller
         $book = new Book();
         $data['books'] = $book->getAllWithRelation();
 
-        return view('admin.book.index',$data);
+        return view('admin.book.index', $data);
     }
 
     /**
@@ -33,7 +35,7 @@ class BookController extends Controller
         $data['authors'] = Author::get();
         $data['publishers'] = Publisher::get();
 
-        return view('admin.book.create',$data);
+        return view('admin.book.create', $data);
     }
 
     /**
@@ -44,18 +46,42 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+            'author_id' => 'required',
+            'publisher_id' => 'required',
+            'image' => 'required|image',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
-    {
-        //
+        $img_path = $request->file('image')->store('books');
+
+        $data = [
+            'name' => $request->input('name'),
+            'summary' => $request->input('summary'),
+            'image' => $img_path,
+            'publisher_id' => $request->input('publisher_id'),
+            'author_id' => $request->input('author_id'),
+            'status' => $request->input('status'),
+        ];
+
+        $book = new Book();
+        $status_code = $book->storeData($data);
+
+        if ($status_code == 100) {
+            CommonFunction::flash('Book successfully created', 'success');
+            return redirect()->route('book');
+        } else if ($status_code == 2) {
+            CommonFunction::flash('Publisher not found', 'danger');
+            return redirect()->back();
+        } else if ($status_code == 3) {
+            CommonFunction::flash('Author not found', 'danger');
+            return redirect()->back();
+        } else {
+            CommonFunction::flash('Unknown error', 'danger');
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -64,9 +90,18 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($book_id)
     {
-        //
+        $data['authors'] = Author::get();
+        $data['publishers'] = Publisher::get();
+        $data['book'] = Book::find($book_id);
+
+        if (!empty($data['book'])) {
+            return view('admin.book.edit', $data);
+        } else {
+            CommonFunction::flash('Book not found', 'danger');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -76,9 +111,54 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $book_id)
     {
-        //
+        $img_path = null;
+
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+            'author_id' => 'required',
+            'publisher_id' => 'required',
+            'image' => 'image',
+        ]);
+
+        if ($request->hasFile('image')) {
+            Storage::delete($request->input('old_img'));
+            $img_path = $request->file('image')->store('books');
+        }
+
+        $data = [
+            'name' => $request->input('name'),
+            'summary' => $request->input('summary'),
+            'publisher_id' => $request->input('publisher_id'),
+            'author_id' => $request->input('author_id'),
+            'status' => $request->input('status'),
+        ];
+
+        if (!empty($img_path)) {
+            $data['image'] = $img_path;
+        }
+
+        $book = new Book();
+        $status_code = $book->updateData($book_id, $data);
+
+        if ($status_code == 100) {
+            CommonFunction::flash('Book successfully updated', 'success');
+            return redirect()->route('book');
+        } else if ($status_code == 2) {
+            CommonFunction::flash('Publisher not found', 'danger');
+            return redirect()->back();
+        } else if ($status_code == 3) {
+            CommonFunction::flash('Author not found', 'danger');
+            return redirect()->back();
+        } else if ($status_code == 4) {
+            CommonFunction::flash('Book not found', 'danger');
+            return redirect()->back();
+        } else {
+            CommonFunction::flash('Unknown error', 'danger');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -87,8 +167,19 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($book_id)
     {
-        //
+        $user = new Book();
+        $status = $user->deleteData($book_id);
+        if ($status == 100) {
+            CommonFunction::flash('Book successfully updated', 'success');
+            return redirect()->route('book');
+        } else if ($status == 2) {
+            CommonFunction::flash('Book not found', 'danger');
+            return redirect()->back();
+        } else {
+            CommonFunction::flash('Unknown error', 'danger');
+            return redirect()->back();
+        }
     }
 }

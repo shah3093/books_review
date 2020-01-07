@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Book extends Model
 {
@@ -40,11 +41,10 @@ class Book extends Model
         $book->image = $data['image'];
         $book->publisher_id = $data['publisher_id'];
         $book->author_id = $data['author_id'];
-        $book->purchase_links = $data['purchase_links'];
         $book->status = $data['status'];
 
         $book->save();
-        return $book;
+        return $status_code;
     }
 
 
@@ -61,16 +61,18 @@ class Book extends Model
         if (!empty($book)) {
             $book->name = $data['name'];
             $book->summary = $data['summary'];
-            $book->image = $data['image'];
             $book->publisher_id = $data['publisher_id'];
             $book->author_id = $data['author_id'];
-            $book->purchase_links = $data['purchase_links'];
             $book->status = $data['status'];
+
+            if(!empty($data['image'])){
+                $book->image = $data['image'];
+            }
 
             $book->save();
 
         } else {
-            $status_code = 2;
+            $status_code = 4;
         }
 
         return $status_code;
@@ -83,6 +85,7 @@ class Book extends Model
         $book = Book::find($id);
 
         if (!empty($book)) {
+            Storage::delete($book['image']);
             $book->delete();
         } else {
             $statusCode = 2;

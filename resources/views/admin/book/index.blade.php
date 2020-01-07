@@ -14,7 +14,7 @@
                                         <i class="notika-icon notika-windows"></i>
                                     </div>
                                     <div class="breadcomb-ctn">
-                                        <h2>Publisher</h2>
+                                        <h2>Books</h2>
                                         @include('admin.partials.flash')
                                     </div>
                                 </div>
@@ -43,8 +43,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>E-Mail</th>
-                                    <th>Phone</th>
+                                    <th>Publisher</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -52,19 +53,20 @@
                                 @php
                                     $i = 1;
                                 @endphp
-                                @foreach($publisher as $user)
+                                @foreach($books as $book)
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{$user['name']}}</td>
-                                        <td>{{$user['email']}}</td>
-                                        <td>{{$user['phone']}}</td>
+                                        <td>{{$book['name']}}</td>
+                                        <td>{{$book->publisher['name']}}</td>
+                                        <td>{{$book->author['name']}}</td>
+                                        <td>{{ \App\Utils\CommonFunction::getStatus($book['status']) }}</td>
                                        <td>
-                                            @can(Config::get('constants.permissions.PUBLISHER_EDIT'))
-                                                <a href="{{route('publisher.edit',['id'=>$user['id']])}}"
+                                            @can(Config::get('constants.permissions.BOOK_EDIT'))
+                                                <a href="{{route('book.edit',['id'=>$book['id']])}}"
                                                    class="btn btn-primary notika-btn-primary btn-icon-notika waves-effect"> Edit</a>
                                             @endcan
-                                            @can(Config::get('constants.permissions.PUBLISHER_DELETE'))
-                                                <a href="#" data-href="{{route('publisher.delete',['id'=>$user['id']])}}"
+                                            @can(Config::get('constants.permissions.BOOK_DELETE'))
+                                                <a href="#" data-href="{{route('book.delete',['id'=>$book['id']])}}"
                                                    class="deleteModals btn btn-danger notika-btn-danger btn-icon-notika waves-effect"> Delete</a>
                                             @endcan
                                         </td>
