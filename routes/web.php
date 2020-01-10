@@ -15,12 +15,15 @@ use Illuminate\Support\Facades\Config;
 
 Route::auth();
 
+
+Route::get('/', function () {
+    return view('welcome');
+ });
+
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', function () {
-       return view('admin.home.index');
-    });
     
-    Route::get('/home', function () {
+    Route::get('/admin', function () {
        return view('admin.home.index');
     });
 
