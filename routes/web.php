@@ -73,6 +73,19 @@ Route::group(['middleware' => ['auth']], function () {
         ->middleware('permission:'.Config::get('constants.permissions.PUBLISHER_UPDATE'));
     Route::get('publisher-delete/{id}','Admin\PublisherController@destroy')->name('publisher.delete')
         ->middleware('permission:'.Config::get('constants.permissions.PUBLISHER_DELETE'));
+    
+    Route::get('subject','Admin\SubjectController@index')->name('subject')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_LIST'));
+    Route::get('subject-create','Admin\SubjectController@create')->name('subject.create')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_CREATE'));
+    Route::post('subject-store','Admin\SubjectController@store')->name('subject.store')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_STORE'));
+    Route::get('subject-edit/{id}','Admin\SubjectController@edit')->name('subject.edit')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_EDIT'));
+    Route::post('subject-update/{id}','Admin\SubjectController@update')->name('subject.update')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_UPDATE'));
+    Route::get('subject-delete/{id}','Admin\SubjectController@destroy')->name('subject.delete')
+        ->middleware('permission:'.Config::get('constants.permissions.SUBJECT_DELETE'));
 
     Route::get('book','Admin\BookController@index')->name('book')
         ->middleware('permission:'.Config::get('constants.permissions.BOOK_LIST'));

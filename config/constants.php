@@ -27,6 +27,13 @@ return [
         'PUBLISHER_EDIT' => 'edit publisher',
         'PUBLISHER_UPDATE' => 'update publisher',
         'PUBLISHER_LIST' => 'publisher list',
+        
+        'SUBJECT_CREATE' => 'create subject',
+        'SUBJECT_STORE' => 'store subject',
+        'SUBJECT_DELETE' => 'delete subject',
+        'SUBJECT_EDIT' => 'edit subject',
+        'SUBJECT_UPDATE' => 'update subject',
+        'SUBJECT_LIST' => 'subject list',
 
         'BOOK_CREATE' => 'create book',
         'BOOK_STORE' => 'store book',
