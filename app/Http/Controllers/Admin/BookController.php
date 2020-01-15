@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Publisher;
+use App\Models\Subject;
 use App\Utils\CommonFunction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,8 +21,7 @@ class BookController extends Controller
     public function index()
     {
         $book = new Book();
-        $data['books'] = $book->getAllWithRelation();
-
+        $books = $data['books'] = $book->getAllWithRelation();
         return view('admin.book.index', $data);
     }
 
@@ -34,6 +34,7 @@ class BookController extends Controller
     {
         $data['authors'] = Author::get();
         $data['publishers'] = Publisher::get();
+        $data['subjects'] = Subject::get();
 
         return view('admin.book.create', $data);
     }
@@ -52,6 +53,7 @@ class BookController extends Controller
             'author_id' => 'required',
             'publisher_id' => 'required',
             'image' => 'required|image',
+            'subjects' => 'required|array',
         ]);
 
         $img_path = $request->file('image')->store('books');
@@ -63,6 +65,7 @@ class BookController extends Controller
             'publisher_id' => $request->input('publisher_id'),
             'author_id' => $request->input('author_id'),
             'status' => $request->input('status'),
+            'subjects' => $request->input('subjects'),
         ];
 
         $book = new Book();
@@ -76,6 +79,9 @@ class BookController extends Controller
             return redirect()->back();
         } else if ($status_code == 3) {
             CommonFunction::flash('Author not found', 'danger');
+            return redirect()->back();
+        }else if ($status_code == 4) {
+            CommonFunction::flash('Subject not found', 'danger');
             return redirect()->back();
         } else {
             CommonFunction::flash('Unknown error', 'danger');
@@ -94,7 +100,8 @@ class BookController extends Controller
     {
         $data['authors'] = Author::get();
         $data['publishers'] = Publisher::get();
-        $data['book'] = Book::find($book_id);
+        $data['book'] = Book::with('bookSubject')->find($book_id);
+        $data['subjects'] = Subject::get();
 
         if (!empty($data['book'])) {
             return view('admin.book.edit', $data);
@@ -121,6 +128,7 @@ class BookController extends Controller
             'author_id' => 'required',
             'publisher_id' => 'required',
             'image' => 'image',
+            'subjects' => 'required|array',
         ]);
 
         if ($request->hasFile('image')) {
@@ -134,6 +142,7 @@ class BookController extends Controller
             'publisher_id' => $request->input('publisher_id'),
             'author_id' => $request->input('author_id'),
             'status' => $request->input('status'),
+            'subjects' => $request->input('subjects'),
         ];
 
         if (!empty($img_path)) {
@@ -152,8 +161,11 @@ class BookController extends Controller
         } else if ($status_code == 3) {
             CommonFunction::flash('Author not found', 'danger');
             return redirect()->back();
-        } else if ($status_code == 4) {
+        } else if ($status_code == 5) {
             CommonFunction::flash('Book not found', 'danger');
+            return redirect()->back();
+        }else if ($status_code == 4) {
+            CommonFunction::flash('Subject not found', 'danger');
             return redirect()->back();
         } else {
             CommonFunction::flash('Unknown error', 'danger');

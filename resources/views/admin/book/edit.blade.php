@@ -125,6 +125,47 @@
                             </div>
                         </div>
 
+
+                        <div class="form-example-int form-horizental">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="hrzn-fm">Subjects <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="nk-int-st">
+
+                                            <div class="chosen-select-act fm-cmp-mg">
+                                                <select class="chosen" name="subjects[]" multiple
+                                                    data-placeholder="Choose a Country...">
+
+                                                    @foreach ($subjects as $subject)
+
+                                                    <?php
+                                                    $selected_sub_id = null;
+                                                        foreach ($book['bookSubject'] as $b_sub) {
+                                                            if($b_sub['subject_id'] == $subject['id']){
+                                                                $selected_sub_id = "selected";
+                                                                break;
+                                                            }
+                                                        }
+                                                    ?>
+
+                                                    <option {{$selected_sub_id}} value="{{$subject['id']}}">{{$subject['name']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            @error('subjects')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="form-example-int form-horizental">
                             <div class="form-group">
                                 <div class="row">
@@ -208,4 +249,20 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/notika/css/chosen/chosen.css')}}">
+@endsection
+
+@section('scripts')
+<script src="{{asset('assets/notika/js/chosen/chosen.jquery.js')}}"></script>
+
+<script>
+    $(".chosen").chosen({
+            width: "100%",
+            allow_single_deselect: !0
+        });
+</script>
 @endsection

@@ -3138,7 +3138,7 @@ textarea.auto-size {
 	background-color: #00c292;
 	background-image:none;
 	color:#fff;
-	padding: 5px 10px;
+	/* padding: 5px 10px; */
 }
 .chosen-select-act .chosen-container-multi .chosen-choices li.search-choice span{
 	

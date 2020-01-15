@@ -70,7 +70,8 @@
 
                                             <select required class="form-control input-sm" name="author_id">
                                                 @foreach ($authors as $author)
-                                                <option  {{old('author_id') == $author['id'] ? 'selected':null }} value="{{$author['id']}}">{{$author['name']}}</option>
+                                                <option {{old('author_id') == $author['id'] ? 'selected':null }}
+                                                    value="{{$author['id']}}">{{$author['name']}}</option>
                                                 @endforeach
                                             </select>
 
@@ -94,7 +95,8 @@
 
                                             <select required class="form-control input-sm" name="publisher_id">
                                                 @foreach ($publishers as $publisher)
-                                                <option  {{old('publisher_id') ==$publisher['id'] ? 'selected':null }} value="{{$publisher['id']}}">{{$publisher['name']}}</option>
+                                                <option {{old('publisher_id') ==$publisher['id'] ? 'selected':null }}
+                                                    value="{{$publisher['id']}}">{{$publisher['name']}}</option>
                                                 @endforeach
                                             </select>
 
@@ -106,7 +108,36 @@
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <div class="form-example-int form-horizental">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="hrzn-fm">Subjects <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="nk-int-st">
+
+                                            <div class="chosen-select-act fm-cmp-mg">
+                                                <select class="chosen" name="subjects[]" multiple
+                                                    data-placeholder="Choose a Country...">
+
+                                                    @foreach ($subjects as $subject)
+                                                    <option value="{{$subject['id']}}">{{$subject['name']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            @error('subjects')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="form-example-int form-horizental">
                             <div class="form-group">
                                 <div class="row">
@@ -118,7 +149,8 @@
 
                                             <select required class="form-control input-sm" name="status">
                                                 @foreach (App\Models\Book::BOOK_STATUS as $key=>$status)
-                                                <option {{old('status') ==$key ? 'selected':null }} value="{{$key}}">{{$status}}</option>
+                                                <option {{old('status') ==$key ? 'selected':null }} value="{{$key}}">
+                                                    {{$status}}</option>
                                                 @endforeach
                                             </select>
 
@@ -139,9 +171,9 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <div class="nk-int-st">
-                
-                                            <input accept="image/*" required type="file" class="form-control input-sm" name="image"
-                                                value="{{old('image')}}" />
+
+                                            <input accept="image/*" required type="file" class="form-control input-sm"
+                                                name="image" value="{{old('image')}}" />
 
                                             @error('image')
                                             <span class="text-danger">{{ $message }}</span>
@@ -187,4 +219,19 @@
     </div>
 </div>
 
+@endsection
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('assets/notika/css/chosen/chosen.css')}}">
+@endsection
+
+@section('scripts')
+<script src="{{asset('assets/notika/js/chosen/chosen.jquery.js')}}"></script>
+
+<script>
+    $(".chosen").chosen({
+            width: "100%",
+            allow_single_deselect: !0
+        });
+</script>
 @endsection

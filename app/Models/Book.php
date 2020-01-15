@@ -12,17 +12,24 @@ class Book extends Model
         0 => 'Inactive',
     ];
 
-    public function publisher(){
-        return $this->belongsTo(Publisher::class,'publisher_id');
+    public function bookSubject()
+    {
+        return $this->hasMany(BookSubjects::class);
     }
-    
-    public function author(){
-        return $this->belongsTo(Author::class,'author_id');
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class, 'publisher_id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function getAllWithRelation()
     {
-        return Book::with('publisher','author')->get();
+        return Book::with('publisher', 'author', 'bookSubject.subject')->get();
     }
 
     public function storeData($data)
@@ -43,7 +50,18 @@ class Book extends Model
         $book->author_id = $data['author_id'];
         $book->status = $data['status'];
 
-        $book->save();
+        $status = $book->save();
+
+        if (!empty($status)) {
+            foreach ($data['subjects'] as $subject) {
+                $d_subject = new BookSubjects();
+                $d_subject->storeData(
+                    $book->id,
+                    $subject
+                );
+            }
+        }
+
         return $status_code;
     }
 
@@ -65,14 +83,28 @@ class Book extends Model
             $book->author_id = $data['author_id'];
             $book->status = $data['status'];
 
-            if(!empty($data['image'])){
+            if (!empty($data['image'])) {
                 $book->image = $data['image'];
             }
 
-            $book->save();
+            $status = $book->save();
+
+            if (!empty($status)) {
+                $d_subject = new BookSubjects();
+
+                $d_subject->deletData($book->id);
+
+                foreach ($data['subjects'] as $subject) {
+                    
+                    $d_subject->storeData(
+                        $book->id,
+                        $subject
+                    );
+                }
+            }
 
         } else {
-            $status_code = 4;
+            $status_code = 5;
         }
 
         return $status_code;
@@ -110,6 +142,19 @@ class Book extends Model
 
             if (empty($author)) {
                 $status_code = 3;
+            }
+        }
+
+        if (empty($status_code)) {
+            foreach ($data['subjects'] as $subject) {
+                $d_subject = Subject::find($subject);
+
+                if (empty($d_subject)) {
+                    $status_code = 4;
+                }
+                if (!empty($status_code)) {
+                    break;
+                }
             }
         }
 

@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
+
+
+    public function bookSubject()
+    {
+        return $this->hasMany(BookSubjects::class);
+    }
+
     public function getAll()
     {
         return Subject::get();
