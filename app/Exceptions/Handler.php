@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ApiExceptionTrait;
+use App\Traits\ExceptionTrait;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ApiExceptionTrait;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -46,6 +50,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($request->wantsJson()) {   //add Accept: application/json in request
+            return $this->handleApiException($request, $exception);
+        } else {
+            $retval = parent::render($request, $exception);
+        }
+    
+        return $retval;
     }
 }

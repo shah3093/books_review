@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1')->namespace('Api\v1')->group(function () {
-    Route::get('most-reviewd-books', 'BookController@getMostReviewdBooks')->name('most-reviewd-books');
+    Route::get('books/most-reviewd-books/{limit?}', 'BookController@getMostReviewdBooks')->name('most-reviewd-books');
+    Route::get('books', 'BookController@getBooks')->name('books');
 
 });
 

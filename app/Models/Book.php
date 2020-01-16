@@ -16,6 +16,11 @@ class Book extends Model
     {
         return $this->hasMany(BookSubjects::class);
     }
+    
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public function publisher()
     {
@@ -31,6 +36,13 @@ class Book extends Model
     {
         return Book::with('publisher', 'author', 'bookSubject.subject')->get();
     }
+    
+    public function getBooksWithPaginate($per_page=10)
+    {
+        return Book::select('id as book_id','name as title','image as image_url')->paginate($per_page);
+    }
+
+
 
     public function storeData($data)
     {
