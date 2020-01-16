@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::prefix('v1')->namespace('Api\v1')->group(function () {
+    Route::get('most-reviewd-books', 'BookController@getMostReviewdBooks')->name('most-reviewd-books');
+
+});
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Vote;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
-class UsersTableSeeder extends Seeder
+class VoteTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 100)->create();
+        factory(Vote::class, 1000)->create();
     }
 }
