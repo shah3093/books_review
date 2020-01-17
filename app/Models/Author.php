@@ -11,6 +11,11 @@ class Author extends Model
     {
         return Author::get();
     }
+    
+    public function getAllWithNameId()
+    {
+        return Author::select('name as author_name','id as author_id')->get();
+    }
 
     public function storeData($data)
     {

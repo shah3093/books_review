@@ -18,6 +18,11 @@ class Subject extends Model
         return Subject::get();
     }
 
+    public function getAllWithNameId()
+    {
+        return Subject::select('name as subject_name','id as subject_id')->get();
+    }
+
     public function storeData($data)
     {
         $user = new Subject();

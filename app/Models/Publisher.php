@@ -11,6 +11,11 @@ class Publisher extends Model
         return Publisher::get();
     }
 
+    public function getAllWithNameId()
+    {
+        return Publisher::select('name as publisher_name','id as publisher_id')->get();
+    }
+
 
     public function storeData($data)
     {

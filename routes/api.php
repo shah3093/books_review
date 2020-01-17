@@ -17,6 +17,11 @@ Route::prefix('v1')->namespace('Api\v1')->group(function () {
     Route::get('books/most-reviewd-books/{limit?}', 'BookController@getMostReviewdBooks')->name('most-reviewd-books');
     Route::get('books', 'BookController@getBooks')->name('books');
 
+
+    Route::get('authors', 'AuthorController@getAuthors')->name('authors');
+    Route::get('publishers', 'PublisherController@getPublisher')->name('publishers');
+    Route::get('subjects', 'SubjectController@getSubject')->name('subjects');
+
 });
 
 
