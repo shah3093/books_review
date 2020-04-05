@@ -17,6 +17,11 @@ class Book extends Model
         return $this->hasMany(BookSubjects::class);
     }
     
+    public function bookAuthor()
+    {
+        return $this->hasMany(BookAuthor::class);
+    }
+    
     public function review()
     {
         return $this->hasMany(Review::class);
@@ -35,6 +40,12 @@ class Book extends Model
     public function getAllWithRelation()
     {
         return Book::with('publisher', 'author', 'bookSubject.subject')->get();
+    }
+    
+    public function getById($book_id)
+    {
+        return Book::with('publisher', 'bookAuthor.author', 'bookSubject.subject')
+        ->where(['id'=>$book_id,'status'=>1])->first();
     }
     
     public function getBooksWithPaginate($per_page=10)

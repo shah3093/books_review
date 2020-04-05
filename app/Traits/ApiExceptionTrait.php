@@ -27,6 +27,7 @@ trait ApiExceptionTrait
 
     private function customApiResponse($exception)
     {
+
         if (method_exists($exception, 'getStatusCode')) {
             $statusCode = $exception->getStatusCode();
         } else {
@@ -41,29 +42,48 @@ trait ApiExceptionTrait
         switch ($statusCode) {
             case 401:
                 $response['error']['message'] = 'Unauthorized';
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
             case 403:
                 $response['error']['message'] = 'Forbidden';
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
             case 404:
                 $response['error']['message'] = 'Not Found';
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
             case 405:
                 $response['error']['message'] = 'Method Not Allowed';
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
             case 422:
                 $response['error']['message'] = $exception->original['message'];
                 $response['error']['errors'] = $exception->original['errors'];
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
             default:
                 $response['error']['message'] = ($statusCode == 500) ? 'Whoops, looks like something went wrong' : $exception->getMessage();
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
                 break;
         }
 
-        if (config('app.debug')) {
-            $response['error']['trace'] = $exception->getTrace();
-        }
-
         return response()->json($response, $statusCode);
+    }
+
+    private function generateTrace($exception)
+    {
+        return $exception->getTrace();
     }
 }
