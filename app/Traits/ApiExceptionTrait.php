@@ -31,13 +31,19 @@ trait ApiExceptionTrait
         if (method_exists($exception, 'getStatusCode')) {
             $statusCode = $exception->getStatusCode();
         } else {
-            $statusCode = 500;
+            if (!empty($exception->getCode())) {
+                $statusCode = $exception->getCode();
+            } else {
+                $statusCode = 500;
+            }
         }
+
 
         $response = [];
 
         $response['status'] = $statusCode;
         $response['error']['code'] = $exception->getCode();
+
 
         switch ($statusCode) {
             case 401:
@@ -70,6 +76,13 @@ trait ApiExceptionTrait
                 if (config('app.debug')) {
                     $response['error']['trace'] = $this->generateTrace($exception);
                 }
+                break;
+            case 7000:
+                $response['error']['message'] = $exception->getMessage();
+                if (config('app.debug')) {
+                    $response['error']['trace'] = $this->generateTrace($exception);
+                }
+                $statusCode = "412";
                 break;
             default:
                 $response['error']['message'] = ($statusCode == 500) ? 'Whoops, looks like something went wrong' : $exception->getMessage();

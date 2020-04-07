@@ -53,6 +53,16 @@ class Book extends Model
         return Book::select('id as book_id','name as title','image as image_url')->paginate($per_page);
     }
 
+    public function getSubjectWiseBooks($limit,$subjects_id)
+    {
+        $results = Book::select('id as book_id','name as title','image as image_url')
+        ->with(['bookSubject.subject' => function ($query) use ($subjects_id){
+            $query->whereIn('id',[$subjects_id]);
+        }])->limit($limit)->get();
+
+        return $results;
+    }
+
 
 
     public function storeData($data)

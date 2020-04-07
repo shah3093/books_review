@@ -36,7 +36,12 @@ class Review extends Model
 
     public function getReviewById($review_id)
     {
-    
+        $result = Review::with('user','vote')
+        ->where('id',$review_id)
+        ->where('status',1)
+        ->first();
+
+        return $result;
     }
 
     public function getReviewsByBookId($book_id)

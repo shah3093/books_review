@@ -14,7 +14,7 @@ trait ApiResponseTrait
             'data' => $data
         ];
 
-        sleep(5);
+        // sleep(5);
 
         return response()->json($response,200);
     }

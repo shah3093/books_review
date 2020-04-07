@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Review;
+use App\Traits\ApiExceptionTrait;
 use App\Traits\ApiResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use \Illuminate\Support\Facades\Response;
 
 class BookController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait,ApiExceptionTrait;
 
     public function getMostReviewdBooks($limit = 10)
     {
@@ -93,6 +94,36 @@ class BookController extends Controller
             ];
 
             $message = "Books details";
+            return $this->successResponse($message, $data);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function getSubjectWiseBooks(Request $request, $limit = 4)
+    {
+
+        if(empty($request['subjects_id'])){
+            throw new Exception("Parametters subjects id can't be null",7000);
+        }
+
+        $bookObj = new Book();
+        $books = $bookObj->getSubjectWiseBooks($limit, $request['subjects_id']);
+
+        
+        if ($books->count() > 0) {
+            $data = [];
+            foreach ($books as $key => $book) {
+                $tmp_data = [
+                    'book_id' => $book['book_id'],
+                    'title' => $book['title'],
+                    'image_url' => $book['image_url'],
+                ];
+
+                array_push($data, $tmp_data);
+            }
+
+            $message = "Subjects wise books";
             return $this->successResponse($message, $data);
         } else {
             abort(404);

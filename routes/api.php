@@ -24,14 +24,15 @@ Route::group(['middleware' => ['check_api_response']], function () {
         Route::get('books/most-reviewd-books/{limit?}', 'BookController@getMostReviewdBooks')->name('most-reviewd-books');
         Route::get('books', 'BookController@getBooks')->name('books');
         Route::get('books/{id}', 'BookController@show')->name('book.show');
+        Route::get('books/subjects/{limit}', 'BookController@getSubjectWiseBooks')->name('book.subject');
 
 
         Route::get('authors', 'AuthorController@getAuthors')->name('authors');
         Route::get('publishers', 'PublisherController@getPublisher')->name('publishers');
         Route::get('subjects', 'SubjectController@getSubject')->name('subjects');
 
-        Route::get('reviews/book/{id}', 'ReviewController@getReviewsByBookId')->name('review');
-        Route::get('reviews/{id}', 'ReviewController@getReviews')->name('review');
+        Route::get('reviews/book/{id}', 'ReviewController@getReviewsByBookId')->name('reviews');
+        Route::get('reviews/{id}', 'ReviewController@show')->name('review.show');
     });
 });
 
